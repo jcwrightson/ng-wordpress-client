@@ -8,19 +8,28 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class WordPress{
 
-   apiRootPath: string = '/wp-json';
-   results: any = {};
+  public apiRootPath: string = '/wp-json'
+  public _cfg: any
+  public results: any = {}
   
-  constructor(
-    private http: Http
+  constructor(private http: Http) { 
     
-    ) { }
+  }
+
+  QuerySettings(settingsArr: any[], q: string){
+    let setting = settingsArr.filter((item)=>
+      item.hasOwnProperty(q)
+    )
+
+    if (setting.length > 0){
+      return setting[0][q]} 
+    else return false
+  }
 
   fetchWp(url: string) {
     return this.http.get(url)
       .map (res => res.json())
       .catch(this.handleError)
-      
   }
 
   routeListToArray(list:string[]){
