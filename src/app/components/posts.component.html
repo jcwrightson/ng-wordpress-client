@@ -1,0 +1,16 @@
+<section id="posts" class="container-fluid">
+        <article id="post" *ngFor="let post of posts">
+            <label *ngIf="QueryPostSettings('show-date')">{{post.date | date}}</label>
+            <a href="{{post.link | postLink:test}}" *ngIf="QueryPostSettings('show-title')"><h2>{{post.title.rendered}}</h2></a>
+
+                <ul *ngIf="QueryPostSettings('show-tags')">
+                    <li *ngFor="let tag of post.tags">{{tag}}</li>
+                </ul>
+
+                <ul *ngIf="QueryPostSettings('show-cats')">
+                    <li *ngFor="let cat of post.categories">{{cat}}</li>
+                </ul>
+
+            <div *ngIf="QueryPostSettings('show-excerpt')" [innerHtml]="post.excerpt.rendered"></div>
+        </article>
+</section>

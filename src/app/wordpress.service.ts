@@ -13,7 +13,9 @@ export class WordPress{
   public results: any = {}
   
   constructor(private http: Http) { 
+
     
+   
   }
 
   QuerySettings(settingsArr: any[], q: string){
@@ -26,11 +28,12 @@ export class WordPress{
     else return false
   }
 
-  fetchWp(url: string) {
+  fetchWp(url: any) {
     return this.http.get(url)
       .map (res => res.json())
       .catch(this.handleError)
   }
+
 
   routeListToArray(list:string[]){
           var arr = [];
@@ -69,7 +72,7 @@ export class WordPress{
     const body = error.json() || '';
     const err = body.error || JSON.stringify(body);
     errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    alert("ERROR: " + errMsg);
+    //alert("ERROR: " + errMsg);
     return Promise.reject(errMsg || error);
   }
 

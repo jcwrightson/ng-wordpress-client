@@ -1,8 +1,18 @@
 {
   "settings": [
-      {"wp-url" : "//demo.wp-api.org"},
-      {"api-url" : "/wp-json/wp/v2"},
+      {"wp-url" : "//localhost/wp"},
+      {"api-root-path" : "/wp-json"},
+      {"api-url" : "/wp/v2"},
       {"posts-per-page" : 10},
       {"comments-enabled" : false}
+    ],
+    "postSettings" : [
+      {"show-date": true},
+      {"show-title": true},
+      {"show-tags": false},
+      {"show-cats": false},
+      {"show-excerpt": true}
+      
+
     ]
 }
