@@ -1,6 +1,6 @@
-<section id="posts" class="container-fluid">
+<section id="post-list" class="container-fluid">
         <article id="post" *ngFor="let post of posts">
-            <label *ngIf="QueryPostSettings('show-date')">{{post.date | date}}</label>
+            <label class="date" *ngIf="QueryPostSettings('show-date')">{{post.date | date}}</label>
             <a href="{{post.link | postLink:test}}" *ngIf="QueryPostSettings('show-title')"><h2>{{post.title.rendered}}</h2></a>
 
                 <ul *ngIf="QueryPostSettings('show-tags')">

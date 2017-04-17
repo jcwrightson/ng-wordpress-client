@@ -8,14 +8,18 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class WordPress{
 
+  private pathToCfg: string = '../app/app.cfg.json'
   public apiRootPath: string = '/wp-json'
-  public _cfg: any
-  public results: any = {}
+  public _cfg: any = undefined
+  public results: any
+  
   
   constructor(private http: Http) { 
-
     
-   
+  }
+
+  initCfg(){
+    return this.http.get(this.pathToCfg).map(res => res.json())
   }
 
   QuerySettings(settingsArr: any[], q: string){
@@ -32,6 +36,7 @@ export class WordPress{
     return this.http.get(url)
       .map (res => res.json())
       .catch(this.handleError)
+      
   }
 
 

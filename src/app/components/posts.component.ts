@@ -4,8 +4,8 @@ import { WordPress }  from '../wordpress.service';
 
 @Component({
   selector: 'wp-posts',
-  templateUrl: './posts.component.html',
-  providers: [WordPress]
+  templateUrl: './posts.component.html'
+ 
   
 })
 
@@ -23,30 +23,31 @@ export class WpPostsComponent  {
 
     ngOnInit(){
         const wp = this.wp
-        const log = console.log
+        
         let url: string
 
-        wp.fetchWp('./app/app.cfg.json').subscribe(cfg => {
+        wp.initCfg().subscribe(cfg => {
+
             this.cfg = cfg
-            console.log(this.cfg)
+           
             url = wp.QuerySettings(cfg.settings, 'wp-url') + wp.QuerySettings(cfg.settings, 'api-root-path') + wp.QuerySettings(cfg.settings, 'api-url')
                
             if (this.postType){
                 wp.fetchWp(url + '/' + this.postType).subscribe(
-                posts => {
-                    this.posts = posts
-                    log(posts)
-                    }   
+                posts => this.formatPosts(posts)
                 )
             } else {
                 wp.fetchWp(url + '/posts').subscribe(
-                posts => {
-                    this.posts = posts
-                    log(posts)
-                    }
+                posts => this.formatPosts(posts)
+                
                 )
             }
         })  
+    }
+
+    formatPosts(posts: any[]){
+        this.posts = posts
+        console.log(posts)
     }
 
     QueryPostSettings(q: string){

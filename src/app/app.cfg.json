@@ -1,6 +1,6 @@
 {
   "settings": [
-      {"wp-url" : "//localhost/wp"},
+      {"wp-url" : "//cms.jcwrightson.com"},
       {"api-root-path" : "/wp-json"},
       {"api-url" : "/wp/v2"},
       {"posts-per-page" : 10},

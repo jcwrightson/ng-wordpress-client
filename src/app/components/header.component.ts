@@ -4,8 +4,8 @@ import { WordPress }  from '../wordpress.service';
 
 @Component({
   selector: 'wp-header',
-  templateUrl: './header.component.html',
-  providers: [WordPress]
+  templateUrl: './header.component.html'
+ 
   
 })
 
@@ -20,24 +20,25 @@ export class WpHeaderComponent  {
     ngOnInit(){
         const wp = this.wp
         const log = console.log
-        let url, apiRoot: string
-        let self = this
-
-        wp.fetchWp('./app/app.cfg.json').subscribe(cfg => {
-                url = wp.QuerySettings(cfg.settings, 'wp-url')
-                apiRoot = wp.QuerySettings(cfg.settings, 'api-root-path')
-                if (url && apiRoot){
-                wp.fetchWp(url + apiRoot).subscribe(
-                    site => {
-                        this.site = site
-                        console.log(site)
-                        }
-                    )
-                } else log('Config Error in app.cfg.json: ', url, apiRoot)
-            
-        })
-
+        let url: string
         
+        // Read CFG
+        wp.initCfg().subscribe(cfg => {
+
+            //Build REST route
+            url = wp.QuerySettings(cfg.settings, 'wp-url') + wp.QuerySettings(cfg.settings, 'api-root-path')
+
+            //Fetch Result
+            wp.fetchWp(url).subscribe(
+                site => {
+                    this.formatHeader(site)
+                    }
+                )
+        })
     }
- }
+
+    formatHeader(site: any){
+        this.site = site
+    }
+ };
 
