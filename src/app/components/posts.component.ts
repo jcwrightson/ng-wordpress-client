@@ -17,32 +17,47 @@ export class WpPostsComponent  {
     @Input('postType')
     private postType: string
 
+    @Input('postCat')
+    private postCat: string
+
     constructor(private wp: WordPress){
         this.posts = []
     }
 
     ngOnInit(){
         const wp = this.wp
-        
-        let url: string
 
-        wp.initCfg().subscribe(cfg => {
+        wp.buildUrl().then(
+            url => this.getPosts(url)
+        ).catch(
+            Error => console.error(Error)
+        )
+    }
 
-            this.cfg = cfg
-           
-            url = wp.QuerySettings(cfg.settings, 'wp-url') + wp.QuerySettings(cfg.settings, 'api-root-path') + wp.QuerySettings(cfg.settings, 'api-url')
-               
-            if (this.postType){
+    getPosts(url: any){
+        const wp = this.wp
+
+        if (this.postType){
+            if (this.postCat){
+                //Fetch by type and cat
                 wp.fetchWp(url + '/' + this.postType).subscribe(
-                posts => this.formatPosts(posts)
-                )
-            } else {
+                posts => this.formatPosts(posts))
+            }else {
+                //fetch by post type
+                wp.fetchWp(url + '/' + this.postType).subscribe(
+                posts => this.formatPosts(posts))
+            }                
+        }else {
+            if (this.postCat){
+                //Fetch by post cat
                 wp.fetchWp(url + '/posts').subscribe(
-                posts => this.formatPosts(posts)
-                
-                )
+                posts => this.formatPosts(posts))
+            }else {
+                //Fetch posts (default)
+                wp.fetchWp(url + '/posts').subscribe(
+                posts => this.formatPosts(posts))
             }
-        })  
+        }
     }
 
     formatPosts(posts: any[]){
@@ -51,7 +66,7 @@ export class WpPostsComponent  {
     }
 
     QueryPostSettings(q: string){
-        return this.wp.QuerySettings(this.cfg.postSettings, q)
+        return this.wp.QuerySettings(this.wp._cfg.postSettings, q)
     }
  };
 

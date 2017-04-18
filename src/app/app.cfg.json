@@ -1,5 +1,5 @@
 {
-  "settings": [
+  "globalSettings": [
       {"wp-url" : "//cms.jcwrightson.com"},
       {"api-root-path" : "/wp-json"},
       {"api-url" : "/wp/v2"},

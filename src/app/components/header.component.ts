@@ -19,26 +19,24 @@ export class WpHeaderComponent  {
 
     ngOnInit(){
         const wp = this.wp
-        const log = console.log
-        let url: string
-        
-        // Read CFG
-        wp.initCfg().subscribe(cfg => {
 
-            //Build REST route
-            url = wp.QuerySettings(cfg.settings, 'wp-url') + wp.QuerySettings(cfg.settings, 'api-root-path')
+        wp.initCfg().subscribe(
+            cfg => {
+                let url = wp.QuerySettings(cfg.globalSettings, 'wp-url') + wp.QuerySettings(cfg.globalSettings, 'api-root-path')
 
-            //Fetch Result
-            wp.fetchWp(url).subscribe(
-                site => {
-                    this.formatHeader(site)
+                wp.fetchWp(url).subscribe(
+                    site => {
+                        this.formatHeader(site)
                     }
                 )
-        })
+            }
+        )
+        
     }
 
     formatHeader(site: any){
         this.site = site
+        console.log(site)
     }
  };
 

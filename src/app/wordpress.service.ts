@@ -9,7 +9,6 @@ import 'rxjs/add/operator/toPromise';
 export class WordPress{
 
   private pathToCfg: string = '../app/app.cfg.json'
-  public apiRootPath: string = '/wp-json'
   public _cfg: any = undefined
   public results: any
   
@@ -21,6 +20,24 @@ export class WordPress{
   initCfg(){
     return this.http.get(this.pathToCfg).map(res => res.json())
   }
+
+  buildUrl(): Promise<any>{
+      let url: string
+      let self = this
+
+      var promise = new Promise((resolve , reject) => {    
+        self.initCfg().subscribe((cfg) => {
+          self._cfg = cfg
+          url = self.QuerySettings(cfg.globalSettings, 'wp-url') + self.QuerySettings(cfg.globalSettings, 'api-root-path') + self.QuerySettings(cfg.globalSettings, 'api-url')
+           if (!url.includes('false')){
+             resolve(url);  
+           }else {
+             reject(Error("Invalid URL! check app.cfg.json"));  
+           }
+        })  
+      })
+      return promise;
+    }
 
   QuerySettings(settingsArr: any[], q: string){
     let setting = settingsArr.filter((item)=>
@@ -63,14 +80,17 @@ export class WordPress{
     }
 
     isRestRoute(url: string, route: string){
-      this.fetchWp(url + this.apiRootPath + route).subscribe(res => {
+      this.fetchWp(url + route).subscribe(res => {
         if (res.data.status != '404'){
           return true
         }
       });
     }
-  
 
+  
+    getCatName(id: number){
+        let url = this.buildUrl()
+    }
 
   private handleError(error: any): Promise<any> {
     let errMsg: string;
