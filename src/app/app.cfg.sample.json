@@ -1,6 +1,6 @@
 {
   "globalSettings": [
-      {"wp-url" : "//cms.jcwrightson.com"},
+      {"wp-url" : "//demo.wp-api.org"},
       {"api-root-path" : "/wp-json"},
       {"api-url" : "/wp/v2"},
       {"posts-per-page" : 10},
