@@ -4,7 +4,6 @@ import { WordPress }  from '../app/wordpress.service';
 @Component({
   selector: 'wordpress',
   template: `
-  <wp-header></wp-header>
   <wp-posts></wp-posts>`
   
 })
