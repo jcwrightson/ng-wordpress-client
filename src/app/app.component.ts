@@ -1,18 +1,8 @@
-import { Component, Output, EventEmitter, ApplicationRef } from '@angular/core';
-import { WordPress }  from '../app/wordpress.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'my-app',
-  template: `
-  <wp-header></wp-header>
-  <wp-posts></wp-posts>
- 
-  `
+  template:`<router-outlet></router-outlet>`
   
 })
-export class AppComponent  {
-  public site:any
-
-  constructor(private wp: WordPress){}
-
-}
+export class AppComponent  {}
