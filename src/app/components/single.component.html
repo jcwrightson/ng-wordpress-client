@@ -1,3 +1,10 @@
-<section id="post-single" class="container-fluid">
-    <article [innerHtml]="post.content.rendered" *ngIf="hasPost"></article>
+<section id="post-single" class="container-fluid" *ngIf="hasPost">
+    
+    <article>
+        <h1 [innerHtml]="post.title.rendered"></h1>
+        <label class="date">{{post.date | date}}</label>
+        <hr/>
+        <div [innerHtml]="post.content.rendered"></div>
+    </article>
+    
 </section>

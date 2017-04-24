@@ -20,11 +20,12 @@ export class WpSingleComponent  {
         this.post = {}
 
         this.route.params.subscribe(params =>
-            this.getSingle(params.slug).then(
+            
+            this.getSingle(params).then(
                 post => {
                     this.post = post
                     this.hasPost = true
-                    // this.appRef.tick()
+                    // console.log(this.post)
                 }
             )
         )
@@ -45,12 +46,12 @@ export class WpSingleComponent  {
         // )
     }
 
-    getSingle(slug: string){
+    getSingle(params: any){
     let self = this
 
     let promise = new Promise((resolve, reject) => {
             self.wp.buildUrl().then(url =>
-                self.wp.fetchWp(url + '/posts?slug=' + slug).subscribe(
+                self.wp.fetchWp(url + '/posts?slug=' + params.slug).subscribe(
                     post => {
                         resolve(post[0])
                     },
