@@ -16,6 +16,7 @@ Requires WordPress 4.7 or the wp-rest-api V2 plugin
 
 To display WordPress posts within your project just include the directive: `<wp-posts></wp-posts>` within your template. This will show all published posts, in a list format following default settings.
 
+
 # Posts Options (Basic)
 
 A number of options are available should you need to filter the posts in a static way. These options are intended for static parts of a site that need to always show posts of a certain type / category etc. For more dynamic filtering see the REST approach.
@@ -26,15 +27,26 @@ Get all posts, filter by tag: `<wp-posts [postTag]="'tag'"></wp-posts>`
 
 Get all posts, filter by category and tag: `<wp-posts [postCat]="'category'" [postTag]="'tag'"></wp-posts>`
 
-While the above examples show literal strings, by removing the `''` these options will accept a variable.
 
-# usage (REST)
+
+# Posts Options (Custom Post Type)
+
+Get all posts of custom post type: `<wp-posts [postType]="'type'"></wp-posts>`
+
+Get all posts of custom post type, filter by taxonomy: `<wp-posts [postType]="'type'" [taxTerm]="'tax'" [taxQuery]="'query'"></wp-posts>`
+
+Get all posts, filter by category and tag: `<wp-posts [postCat]="'category'" [postTag]="'tag'"></wp-posts>`
+
+*While the above examples show literal strings, by removing the `''` these options will accept a variable.*
+
+
+# Usage (REST)
 
 `/` retrieves all posts
 
 `/:year/:month/:slug` retrieves a single post
 
-`/:cpt` retrieves all of custom post type
+`/:cpt` retrieves all posts of custom post type
 
 `/:cpt/:slug` retrieves single post of custom type
 
