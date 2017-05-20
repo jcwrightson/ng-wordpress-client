@@ -1,4 +1,5 @@
 <section id="post-list" class="container-fluid">
+
         <article id="post" *ngFor="let post of posts">
             <label class="date" *ngIf="QueryPostSettings('show-date')">{{post.date | date}}</label>
             <a href="{{post.link | postLink:test}}" routerLinkActive="active" *ngIf="QueryPostSettings('show-title')"><h2>{{post.title.rendered}}</h2></a>

@@ -24,7 +24,7 @@ export class WpHeaderComponent  {
             cfg => {
                 let url = wp.QuerySettings(cfg.globalSettings, 'wp-url') + wp.QuerySettings(cfg.globalSettings, 'api-root-path')
 
-                wp.fetchWp(url).subscribe(
+                wp.fetchWp(url, '').subscribe(
                     site => {
                         this.formatHeader(site)
                     }

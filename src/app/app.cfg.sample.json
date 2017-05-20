@@ -1,5 +1,6 @@
 {
   "globalSettings": [
+      {"enable-debugging" : false},
       {"wp-url" : "//demo.wp-api.org"},
       {"api-root-path" : "/wp-json"},
       {"api-url" : "/wp/v2"},

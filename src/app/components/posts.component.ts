@@ -15,17 +15,24 @@ export class WpPostsComponent  {
     private cfg: any
 
     @Input('postType')
-    private postType: string
+    postType: string
 
     @Input('postCat')
-    private postCat: string
+    postCat: string
+
+    @Input('taxTerm')
+    taxTerm: string
+
+    @Input('taxQuery')
+    taxQuery: string
 
     constructor(private wp: WordPress){
-        this.posts = []
+        this.posts = []       
     }
 
     ngOnInit(){
         const wp = this.wp
+        
 
         wp.buildUrl().then(
             url => this.getPosts(url)
@@ -36,28 +43,26 @@ export class WpPostsComponent  {
 
     getPosts(url: any){
         const wp = this.wp
+        let query: string = '/posts'
 
         if (this.postType){
-            if (this.postCat){
-                //Fetch by type and cat
-                wp.fetchWp(url + '/' + this.postType).subscribe(
-                posts => this.formatPosts(posts))
-            }else {
-                //fetch by post type
-                wp.fetchWp(url + '/' + this.postType).subscribe(
-                posts => this.formatPosts(posts))
-            }                
-        }else {
-            if (this.postCat){
-                //Fetch by post cat
-                wp.fetchWp(url + '/posts').subscribe(
-                posts => this.formatPosts(posts))
-            }else {
-                //Fetch posts (default)
-                wp.fetchWp(url + '/posts').subscribe(
-                posts => this.formatPosts(posts))
-            }
+            query = '/' + this.postType + '?'  
         }
+        
+        if (this.postCat){
+            query += 'categories=' + this.postCat + '&'
+        }
+
+        if (this.taxTerm && this.taxQuery){
+            query += this.taxTerm + '=' + this.taxQuery
+        }
+        
+
+        console.log('wpQuery: ', query)
+
+        wp.fetchWp(url, query).subscribe(
+            posts => this.formatPosts(posts)
+        )
     }
 
     formatPosts(posts: any[]){

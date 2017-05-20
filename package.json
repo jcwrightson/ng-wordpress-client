@@ -19,7 +19,7 @@
     "pretest:once": "npm run build",
     "test:once": "karma start karma.conf.js --single-run",
     "lint": "tslint ./src/**/*.ts -t verbose",
-    "sass-w" : "node-sass --watch --recursive --output ./src/app/css --source-map true --source-map-contents ./src/**/*.scss"
+    "sass-w": "node-sass --watch --recursive --output ./src/app/css --source-map true --source-map-contents ./src/**/*.scss"
   },
   "keywords": [],
   "author": "",
@@ -34,9 +34,10 @@
     "@angular/platform-browser-dynamic": "~4.0.0",
     "@angular/router": "~4.0.0",
     "angular-in-memory-web-api": "~0.3.0",
-    "systemjs": "0.19.40",
     "core-js": "^2.4.1",
+    "ng2-cache": "^0.1.10",
     "rxjs": "5.0.1",
+    "systemjs": "0.19.40",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {

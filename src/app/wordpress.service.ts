@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Headers, Http } from '@angular/http';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/toPromise';
+
+
 
 @Injectable()
 export class WordPress{
@@ -14,11 +17,21 @@ export class WordPress{
   
   
   constructor(private http: Http) { 
-    
+      this.http.get(this.pathToCfg).map(res => res.json()).subscribe(cfg => {
+        if (!this.QuerySettings(cfg.globalSettings, 'enable-debugging')){
+
+          //Disable console outputs
+          console.log = function(){}
+        }
+      })
   }
 
   initCfg(){
     return this.http.get(this.pathToCfg).map(res => res.json())
+  }
+
+  setCache(cName: string, cVal : string, cExp : any){
+
   }
 
   buildUrl(): Promise<any>{
@@ -27,7 +40,7 @@ export class WordPress{
 
       var promise = new Promise((resolve , reject) => {    
         self.initCfg().subscribe((cfg) => {
-          self._cfg = cfg
+          self._cfg = cfg    
           url = self.QuerySettings(cfg.globalSettings, 'wp-url') + self.QuerySettings(cfg.globalSettings, 'api-root-path') + self.QuerySettings(cfg.globalSettings, 'api-url')
            if (!url.includes('false')){
              resolve(url);  
@@ -49,8 +62,8 @@ export class WordPress{
     else return false
   }
 
-  fetchWp(url: any) {
-    return this.http.get(url)
+  fetchWp(url: string, query: string) {
+    return this.http.get(url + query)
       .map (res => res.json())
       .catch(this.handleError)
       
@@ -80,7 +93,7 @@ export class WordPress{
     }
 
     isRestRoute(url: string, route: string){
-      this.fetchWp(url + route).subscribe(res => {
+      this.fetchWp(url, route).subscribe(res => {
         if (res.data.status != '404'){
           return true
         }
@@ -90,6 +103,28 @@ export class WordPress{
   
     getCatName(id: number){
         let url = this.buildUrl()
+    }
+
+
+    readCache(cName: string){
+      let cache : string[]
+      let cItem : any
+      cache = document.cookie.split(';')
+
+      cItem = cache.filter((item) =>{
+        return item.includes(cName)
+      })[0]
+
+      cItem.replace(cName + '=', '')
+
+      if (cItem.includes('{' || '[')){
+        JSON.parse(cItem)
+      }
+
+      console.log(cItem)
+
+      
+
     }
 
   private handleError(error: any): Promise<any> {
