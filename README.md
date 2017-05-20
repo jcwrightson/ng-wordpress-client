@@ -27,15 +27,16 @@ Get all posts, filter by tag: `<wp-posts [postTag]="'tag'"></wp-posts>`
 
 Get all posts, filter by category and tag: `<wp-posts [postCat]="'category'" [postTag]="'tag'"></wp-posts>`
 
+*While the above examples show literal strings, by removing the `''` these options will accept a variable.*
 
 
 # Posts Options (Custom Post Type)
 
+Building upon the previous options:
+
 Get all posts of custom post type: `<wp-posts [postType]="'type'"></wp-posts>`
 
 Get all posts of custom post type, filter by taxonomy: `<wp-posts [postType]="'type'" [taxTerm]="'tax'" [taxQuery]="'query'"></wp-posts>`
-
-Get all posts, filter by category and tag: `<wp-posts [postCat]="'category'" [postTag]="'tag'"></wp-posts>`
 
 *While the above examples show literal strings, by removing the `''` these options will accept a variable.*
 
