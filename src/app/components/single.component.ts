@@ -6,8 +6,8 @@ import { WordPress }  from '../wordpress.service';
 @Component({
   selector: 'wp-single',
   templateUrl: './single.component.html'
- 
-  
+
+
 })
 
 export class WpSingleComponent  {
@@ -20,7 +20,7 @@ export class WpSingleComponent  {
         this.post = {}
 
         this.route.params.subscribe(params =>
-            
+
             this.getSingle(params).then(
                 post => {
                     this.post = post
@@ -35,7 +35,7 @@ export class WpSingleComponent  {
     ngOnInit(){
         const wp = this.wp
 
-        
+
 
         //console.log(slug)
 
@@ -51,7 +51,7 @@ export class WpSingleComponent  {
 
     let promise = new Promise((resolve, reject) => {
             self.wp.buildUrl().then(url =>
-                self.wp.fetchWp(url + '/posts?slug=' + params.slug).subscribe(
+                self.wp.fetchWp(url, '/posts?slug=' + params.slug).subscribe(
                     post => {
                         resolve(post[0])
                     },
@@ -66,7 +66,7 @@ export class WpSingleComponent  {
     }
 
     formatPosts(posts: any[]){
-       
+
     }
  };
 

@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { WordPress } from './wordpress.service'
 
-@Pipe({name: 'postLink'})
-export class PostLinkPipe implements PipeTransform {
+@Pipe({name: 'stripUrl'})
+export class StripUrlPipe implements PipeTransform {
   private wpUrl: string
 
   constructor(private wp: WordPress){
@@ -11,8 +11,20 @@ export class PostLinkPipe implements PipeTransform {
     )
 
   }
-  
+
   transform(link: string): string {
-    return  link.replace(this.wpUrl, '') 
+
+    // Remove http:
+    if (link.includes("http:")){
+      link = link.replace("http:", '')
+    }
+
+    // Remove https:
+    if (link.includes("https:")){
+      link = link.replace("https:", '')
+    }
+
+    // Remove url to WP site
+    return  link.replace(this.wpUrl, '')
   }
 }

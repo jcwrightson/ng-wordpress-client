@@ -2,17 +2,17 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
-import { CacheService, CacheStoragesEnum } from 'ng2-cache';
+
 
 import { AppComponent }  from './app.component';
 import { WpHeaderComponent }  from './components/header.component';
 import { WpPostsComponent }  from './components/posts.component';
 import { WpSingleComponent }  from './components/single.component';
 import { WpComponent }  from './wp.component';
-import { PostLinkPipe }  from './app.pipes';
+import { StripUrlPipe }  from './app.pipes';
 import { WordPress }  from './wordpress.service';
 
-//Cache
+// Cache
 declare var BUILD_VERSION: string;
 
 const appRoutes : Routes = [
@@ -21,27 +21,26 @@ const appRoutes : Routes = [
 ]
 
 @NgModule({
-  imports:      [ 
+  imports:[
     BrowserModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes) 
-  ],
+    RouterModule.forRoot(appRoutes)],
 
-  declarations: [ 
+  declarations: [
     AppComponent,
     WpComponent,
     WpHeaderComponent,
     WpPostsComponent,
     WpSingleComponent,
-    PostLinkPipe
-  
+    StripUrlPipe
+
   ],
 
   providers: [
       WordPress
   ],
-  bootstrap:    [ 
-    AppComponent 
+  bootstrap:    [
+    AppComponent
   ]
 })
 export class AppModule {}

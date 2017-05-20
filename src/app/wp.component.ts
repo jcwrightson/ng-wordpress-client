@@ -1,15 +1,11 @@
-import { Component, Output, EventEmitter, ApplicationRef } from '@angular/core';
-import { WordPress }  from '../app/wordpress.service';
+import { Component} from '@angular/core';
+import { WordPress }  from './wordpress.service';
 
 @Component({
   selector: 'wordpress',
-  template: `
-  <wp-posts [postType]="'projects'" [postCat]="'test'" [taxTerm]="'portfolios'" [taxQuery]="'9'"></wp-posts>`
-  
+  template: `<wp-posts></wp-posts>`
 })
 export class WpComponent  {
-  public site:any
 
-  constructor(private wp: WordPress){}
-    
+  constructor(private wp: WordPress) {}
 }

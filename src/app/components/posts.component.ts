@@ -5,14 +5,11 @@ import { WordPress }  from '../wordpress.service';
 @Component({
   selector: 'wp-posts',
   templateUrl: './posts.component.html'
- 
-  
 })
 
-export class WpPostsComponent  {
+export class WpPostsComponent {
 
     private posts: any[]
-    private cfg: any
 
     @Input('postType')
     postType: string
@@ -26,13 +23,12 @@ export class WpPostsComponent  {
     @Input('taxQuery')
     taxQuery: string
 
-    constructor(private wp: WordPress){
-        this.posts = []       
+    constructor(private wp: WordPress) {
+        this.posts = []
     }
 
-    ngOnInit(){
+    ngOnInit() {
         const wp = this.wp
-        
 
         wp.buildUrl().then(
             url => this.getPosts(url)
@@ -41,22 +37,21 @@ export class WpPostsComponent  {
         )
     }
 
-    getPosts(url: any){
+    getPosts(url: any) {
         const wp = this.wp
         let query: string = '/posts'
 
-        if (this.postType){
-            query = '/' + this.postType + '?'  
+        if (this.postType) {
+            query = '/' + this.postType + '?'
         }
-        
-        if (this.postCat){
+
+        if (this.postCat) {
             query += 'categories=' + this.postCat + '&'
         }
 
-        if (this.taxTerm && this.taxQuery){
+        if (this.taxTerm && this.taxQuery) {
             query += this.taxTerm + '=' + this.taxQuery
         }
-        
 
         console.log('wpQuery: ', query)
 
@@ -65,12 +60,12 @@ export class WpPostsComponent  {
         )
     }
 
-    formatPosts(posts: any[]){
+    formatPosts(posts: any[]) {
         this.posts = posts
         console.log(posts)
     }
 
-    QueryPostSettings(q: string){
+    QueryPostSettings(q: string) {
         return this.wp.QuerySettings(this.wp._cfg.postSettings, q)
     }
  };

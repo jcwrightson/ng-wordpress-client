@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Headers, Http } from '@angular/http';
+import { Http } from '@angular/http';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -9,28 +8,27 @@ import 'rxjs/add/operator/toPromise';
 
 
 @Injectable()
-export class WordPress{
+export class WordPress {
 
   private pathToCfg: string = '../app/app.cfg.json'
   public _cfg: any = undefined
   public results: any
-  
-  
-  constructor(private http: Http) { 
-      this.http.get(this.pathToCfg).map(res => res.json()).subscribe(cfg => {
-        if (!this.QuerySettings(cfg.globalSettings, 'enable-debugging')){
 
-          //Disable console outputs
+  constructor(private http: Http) {
+    this.http.get(this.pathToCfg).map(res => res.json()).subscribe(cfg => {
+        if (!this.QuerySettings(cfg.globalSettings, 'enable-debugging')) {
+
+          // Disable console outputs
           console.log = function(){}
         }
       })
   }
 
-  initCfg(){
+  initCfg() {
     return this.http.get(this.pathToCfg).map(res => res.json())
   }
 
-  setCache(cName: string, cVal : string, cExp : any){
+  setCache(cName: string, cVal : string, cExp : any) {
 
   }
 
@@ -38,16 +36,16 @@ export class WordPress{
       let url: string
       let self = this
 
-      var promise = new Promise((resolve , reject) => {    
+     let promise = new Promise((resolve , reject) => {
         self.initCfg().subscribe((cfg) => {
-          self._cfg = cfg    
+          self._cfg = cfg
           url = self.QuerySettings(cfg.globalSettings, 'wp-url') + self.QuerySettings(cfg.globalSettings, 'api-root-path') + self.QuerySettings(cfg.globalSettings, 'api-url')
-           if (!url.includes('false')){
-             resolve(url);  
+           if (!url.includes('false')) {
+             resolve(url);
            }else {
-             reject(Error("Invalid URL! check app.cfg.json"));  
+             reject(Error("Invalid URL! check app.cfg.json"));
            }
-        })  
+        })
       })
       return promise;
     }
@@ -58,7 +56,7 @@ export class WordPress{
     )
 
     if (setting.length > 0){
-      return setting[0][q]} 
+      return setting[0][q]}
     else return false
   }
 
@@ -66,7 +64,7 @@ export class WordPress{
     return this.http.get(url + query)
       .map (res => res.json())
       .catch(this.handleError)
-      
+
   }
 
 
@@ -81,7 +79,7 @@ export class WordPress{
           return arr;
   }
 
-  
+
     isQueriableRoute(index: number){
       if (this.results.routesArray[index].path.includes('?')){
           return true;
@@ -100,7 +98,7 @@ export class WordPress{
       });
     }
 
-  
+
     getCatName(id: number){
         let url = this.buildUrl()
     }
@@ -123,7 +121,7 @@ export class WordPress{
 
       console.log(cItem)
 
-      
+
 
     }
 
