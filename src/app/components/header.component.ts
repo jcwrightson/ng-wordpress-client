@@ -5,8 +5,8 @@ import { WordPress }  from '../wordpress.service';
 @Component({
   selector: 'wp-header',
   templateUrl: './header.component.html'
- 
-  
+
+
 })
 
 export class WpHeaderComponent  {
@@ -22,7 +22,7 @@ export class WpHeaderComponent  {
 
         wp.initCfg().subscribe(
             cfg => {
-                let url = wp.QuerySettings(cfg.globalSettings, 'wp-url') + wp.QuerySettings(cfg.globalSettings, 'api-root-path')
+                let url = wp.QuerySettings(cfg.globalSettings, 'wp-url') + wp.QuerySettings(cfg.globalSettings, 'api-root')
 
                 wp.fetchWp(url, '').subscribe(
                     site => {
@@ -31,7 +31,7 @@ export class WpHeaderComponent  {
                 )
             }
         )
-        
+
     }
 
     formatHeader(site: any){

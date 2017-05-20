@@ -2,8 +2,6 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
-
-
 import { AppComponent }  from './app.component';
 import { WpHeaderComponent }  from './components/header.component';
 import { WpPostsComponent }  from './components/posts.component';
@@ -12,12 +10,12 @@ import { WpComponent }  from './wp.component';
 import { StripUrlPipe }  from './app.pipes';
 import { WordPress }  from './wordpress.service';
 
-// Cache
-declare var BUILD_VERSION: string;
 
 const appRoutes : Routes = [
   { path: '', component: WpComponent },
-  { path: ':slug', component: WpSingleComponent }
+  { path: ':year/:month/:slug', component: WpSingleComponent },
+  { path: ':cpt', component: WpComponent },
+  { path: ':cpt/:slug', component: WpSingleComponent }
 ]
 
 @NgModule({

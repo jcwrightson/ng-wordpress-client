@@ -1,6 +1,6 @@
-import { Component, Input, Pipe, PipeTransform, ApplicationRef } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { WordPress }  from '../wordpress.service';
+import { Component, Input, Pipe, PipeTransform, ApplicationRef } from '@angular/core'
+import { Router, ActivatedRoute, Params } from '@angular/router'
+import { WordPress }  from '../wordpress.service'
 
 
 @Component({
@@ -25,7 +25,7 @@ export class WpSingleComponent  {
                 post => {
                     this.post = post
                     this.hasPost = true
-                    // console.log(this.post)
+                    console.log(this.post)
                 }
             )
         )
@@ -35,40 +35,40 @@ export class WpSingleComponent  {
     ngOnInit(){
         const wp = this.wp
 
-
-
-        //console.log(slug)
-
-        // wp.buildUrl().then(
-        //     url => this.getSingle(url, slug)
-        // ).catch(
-        //     Error => console.error(Error)
-        // )
     }
 
     getSingle(params: any){
-    let self = this
+      let self = this
+      let query: string
+      console.log(params)
 
-    let promise = new Promise((resolve, reject) => {
-            self.wp.buildUrl().then(url =>
-                self.wp.fetchWp(url, '/posts?slug=' + params.slug).subscribe(
-                    post => {
-                        resolve(post[0])
-                    },
-                    error => {
-                        reject(error)
-                    }
-                )
-            )
-    })
+      query = '/posts?slug=' + params.slug
 
-    return promise
-    }
+      if (params.cpt){
+          query = '/' + params.cpt + '?slug=' + params.slug
+      }
 
-    formatPosts(posts: any[]){
 
-    }
- };
+      let promise = new Promise((resolve, reject) => {
+              self.wp.buildUrl().then(url =>
+                  self.wp.fetchWp(url, query).subscribe(
+                      post => {
+                          resolve(post[0])
+                      },
+                      error => {
+                          reject(error)
+                      }
+                  )
+              )
+      })
+
+      return promise
+      }
+
+      formatPosts(posts: any[]){
+
+      }
+    };
 
 
 

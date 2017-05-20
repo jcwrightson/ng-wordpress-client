@@ -39,7 +39,7 @@ export class WordPress {
      let promise = new Promise((resolve , reject) => {
         self.initCfg().subscribe((cfg) => {
           self._cfg = cfg
-          url = self.QuerySettings(cfg.globalSettings, 'wp-url') + self.QuerySettings(cfg.globalSettings, 'api-root-path') + self.QuerySettings(cfg.globalSettings, 'api-url')
+          url = self.QuerySettings(cfg.globalSettings, 'wp-url') + self.QuerySettings(cfg.globalSettings, 'api-root') + self.QuerySettings(cfg.globalSettings, 'api-path')
            if (!url.includes('false')) {
              resolve(url);
            }else {
